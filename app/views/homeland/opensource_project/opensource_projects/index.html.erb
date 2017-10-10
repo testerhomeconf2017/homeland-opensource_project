@@ -1,0 +1,18 @@
+<% title_tag t('plugin.opensource_project') %>
+
+<div class="row">
+  <div class="col-md-9">
+    <div id="opensource_project-list" class="panel panel-default opensource_project-<%= action_name %>">
+      <div class="panel-body">
+        <% if @opensource_projects.blank? %>
+          <div class="no-result"><%= t('plugin.no_project') %></div>
+        <% else %>
+          <%= render partial: 'opensource_project', collection: @opensource_projects %>
+        <% end %>
+
+        <%= paginate @opensource_projects %>
+      </div>
+    </div>
+  </div>
+  <%= render 'sidebar' %>
+</div>

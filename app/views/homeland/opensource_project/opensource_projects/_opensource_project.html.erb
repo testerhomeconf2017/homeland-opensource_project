@@ -1,0 +1,21 @@
+<div class="opensource_project media" id="opensource_project-<= opensource_project.id %>">
+  <div class="media-left">
+    <div class="opensource_project-likes<%= ' active' if opensource_project.likes_count >= 1 %>">
+      <div class="icon"><i class="fa fa-heart"></i></div>
+      <div class="counter"><%= opensource_project.likes_count %></div>
+    </div>
+  </div>
+  <div class="media-body">
+    <div class="opensource_project-title"><%= link_to opensource_project.title, opensource_project %></div>
+    <% if opensource_project.published? %>
+    <div class="opensource_project-summary markdown">
+      <%= simple_format opensource_project.summary %>
+    </div>
+    <div class="opensource_project-info">
+      <%= opensource_project_user_name_tag(opensource_project.user) %> ·
+      <span class="time" title="发布时间"><i class="fa fa-clock-o"></i> <%= timeago(opensource_project.created_at) %></span> ·
+      <%= link_to "#{opensource_project.comments_count} 条评论", opensource_project_path(opensource_project, anchor: 'comments') %>
+    </div>
+    <% end %>
+  </div>
+</div>

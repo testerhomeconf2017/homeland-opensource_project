@@ -1,0 +1,19 @@
+<div class="sidebar col-md-3 hide-ios">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <% if can? :create, OpensourceProject %>
+        <%= link_to t('plugin.new_project'), new_opensource_project_path, class: 'btn btn-block btn-primary' %>
+      <% end %>
+      <hr />
+      <%= link_to "RSS 订阅", opensource_projects_path(format: 'xml'), class: 'btn btn-block btn-default' %>
+
+      <% if can? :publish, OpensourceProject %>
+      <hr />
+      <a href="<%= upcoming_opensource_projects_path %>" data-turbolinks-action="replace">
+        <i class="fa fa-newspaper-o"></i> 待审核列表...
+      </a>
+      <% end %>
+    </div>
+  </div>
+  <%= raw Setting.topic_index_sidebar_html %>
+</div>
