@@ -1,5 +1,5 @@
 <% content_for :sitemap do %>
-  <span class="current"><%= t('plugin.press') %></span>
+  <span class="current"><%= t('plugin.opensource_project') %></span>
 <% end %>
 
 <table class="table table-bordered table-striped table-condensed">
@@ -11,16 +11,16 @@
   <th>更新时间</th>
   <th style="width:100px"></th>
 </tr>
-<% @posts.each do |post| %>
+<% @opensource_projects.each do |opensource_project| %>
 <tr class="post">
-  <td><%= post.id %></td>
-  <td><%= post.status %></td>
-  <td class="title"><%= link_to post.title, post %></td>
-  <td class="author"><%= user_name_tag(post.user) %></td>
-  <td class="time"><%= l post.updated_at, format: :long %></td>
-  <td><%= link_to "", admin_post_path(post), 'data-confirm' => 'Are you sure?', method: :delete, class: "fa fa-trash" %></td>
+  <td><%= opensource_project.id %></td>
+  <td><%= opensource_project.status %></td>
+  <td class="title"><%= link_to opensource_project.title, opensource_project %></td>
+  <td class="author"><%= user_name_tag(opensource_project.user) %></td>
+  <td class="time"><%= l opensource_project.updated_at, format: :long %></td>
+  <td><%= link_to "", admin_opensource_project_path(opensource_project), 'data-confirm' => 'Are you sure?', method: :delete, class: "fa fa-trash" %></td>
 </tr>
 <% end %>
 </table>
 
-<%= paginate @posts %>
+<%= paginate @opensource_projects %>

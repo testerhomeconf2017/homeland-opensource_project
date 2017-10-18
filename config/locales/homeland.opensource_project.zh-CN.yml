@@ -5,13 +5,19 @@
     new_project: "提交开源项目"
   activerecord:
     models:
-      post: "文章"
+      opensource_project: "项目"
     attributes:
-      post:
+      opensource_project:
         title: 标题
-        slug: Slug
+        slug: 唯一标识
         body: 正文
         summary: 摘要
+        avatar: 封面
+        license: 授权协议
+        dev_language: 开发语言
+        operator_os: 操作系统
+        doc_url: 项目文档
+        proj_url: 项目首页
   simple_form:
     hints:
       post:

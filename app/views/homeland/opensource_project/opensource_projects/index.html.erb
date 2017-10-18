@@ -1,8 +1,12 @@
 <% title_tag t('plugin.opensource_project') %>
 
 <div class="row">
+  <%= render 'sidebar' %>
   <div class="col-md-9">
+
+    <%= render 'projects_thumbnail' %>
     <div id="opensource_project-list" class="panel panel-default opensource_project-<%= action_name %>">
+      <div class="panel-heading">最新收录开源项目</div>
       <div class="panel-body">
         <% if @opensource_projects.blank? %>
           <div class="no-result"><%= t('plugin.no_project') %></div>
@@ -14,5 +18,5 @@
       </div>
     </div>
   </div>
-  <%= render 'sidebar' %>
+
 </div>

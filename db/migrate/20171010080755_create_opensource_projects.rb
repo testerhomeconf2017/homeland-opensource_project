@@ -2,6 +2,12 @@ class CreateOpensourceProjects < ActiveRecord::Migration[5.0]
   def change
     create_table :opensource_projects do |t|
       t.string :title, null: false
+      t.string :avatar
+      t.string :license
+      t.string :dev_language
+      t.string :operator_os
+      t.string :doc_url
+      t.string :proj_url
       t.string :slug, null: false
       t.text :body, null: false
       t.string :summary, limit: 5000

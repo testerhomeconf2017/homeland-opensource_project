@@ -5,9 +5,16 @@ class OpensourceProject < ApplicationRecord
   enum status: %i(upcoming published rejected)
 
   validates :slug, uniqueness: true, if: Proc.new { |opensource_project| opensource_project.slug.present? }
-  validates :title, :summary, :body, presence: true
+  validates :title, :summary, :body, :doc_url, :proj_url, :avatar, presence: true
+  validates_format_of :doc_url, :with => URI.regexp
+  validates_format_of :proj_url, :with => URI.regexp
 
   counter :hits
+
+  mount_uploader :avatar, PhotoUploader
+
+  scope :latest, -> { order(published_at: :desc) }
+  scope :hotest, -> { order(likes_count: :desc) }
 
   before_save :generate_summary
   before_create :generate_published_at
@@ -29,7 +36,7 @@ class OpensourceProject < ApplicationRecord
     self.update(published_at: Time.now)
     super
     if self.user_id
-      Notification.create(notify_type: 'press_published',
+      Notification.create(notify_type: 'opensource_project_published',
                           user_id: self.user_id,
                           target: self)
     end

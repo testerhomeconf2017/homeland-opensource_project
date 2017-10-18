@@ -1,47 +1,75 @@
-<% title_tag @post.title %>
+<% title_tag @opensource_project.title %>
 
-<div id="post-detail" class="panel panel-default">
+<div id="opensource_project-detail" class="panel panel-default">
   <div class="panel-body">
-    <div class="post-opts clearfix">
+    <div class="opensource_project-opts clearfix">
       <div class="pull-left">
-        <a href="<%= posts_path %>" class="btn btn-default"><i class="fa fa-chevron-left"></i> 返回文章列表</a>
+        <a href="<%= opensource_projects_path %>" class="btn btn-default"><i class="fa fa-chevron-left"></i> 返回项目列表</a>
       </div>
 
       <div class="pull-right">
-        <% if can?(:update, @post) %>
-        <%= link_to '编辑', edit_post_path, class: 'btn btn-sm btn-default' %>
+        <% if can?(:update, @opensource_project) %>
+        <%= link_to '编辑', edit_opensource_project_path, class: 'btn btn-sm btn-default' %>
         <% end %>
 
-        <% if can?(:publish, @post) && @post.upcoming? %>
-        <%= link_to '审核通过', publish_post_path, method: 'put', class: 'btn btn-sm btn-success' %>
+        <% if can?(:publish, @opensource_project) && @opensource_project.upcoming? %>
+        <%= link_to '审核通过', publish_opensource_project_path, method: 'put', class: 'btn btn-sm btn-success' %>
         <% end %>
 
-        <% if can?(:destroy, @post) && @post.upcoming? %>
-        <%= link_to '删除', @post, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: "确定要删除么？" } %>
+        <% if can?(:destroy, @opensource_project) && @opensource_project.upcoming? %>
+        <%= link_to '删除', @opensource_project, method: 'delete', class: 'btn btn-sm btn-danger', data: { confirm: "确定要删除么？" } %>
         <% end %>
       </div>
     </div>
-    <h1><%= @post.title %></h1>
-    <div class="post-info">
-      <%= press_user_name_tag(@post.user) %> ·
-      <span class="time" title="发布时间"><i class="fa fa-clock-o"></i> <%= timeago @post.created_at %></span> ·
-      <%= @post.hits %> 次阅读 ·
-      <a href="#comments"><i class="fa fa-comments-o"></i> <%= @post.comments_count %> 条评论</a>
-    </div>
-    <div class="post-body markdown">
-      <%= markdown @post.body %>
-    </div>
-    <%= social_share_button_tag @post.title %>
-    <div class="post-actions">
-      <%= likeable_tag(@post, class: 'btn btn-lg btn-default') %>
 
-      <% unless @post.user&.admin? %>
-        <%= reward_user_tag(@post.user, class: 'btn btn-lg btn-default') %>
+
+
+    <div class="media">
+      <div class="media-left">
+          <%= image_tag @opensource_project.avatar.url, :class => "project_cover_media" %>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><%= @opensource_project.title %></h3>
+        <div class="opensource_project-info">
+          <div>
+            <div><label> 授权协议:</label> <%= @opensource_project.license %></div>
+            <div><label> 开发语言:</label> <%= @opensource_project.dev_language %></div>
+            <div><label> 操作系统:</label> <%= @opensource_project.operator_os %></div>
+          </div>
+          <div>
+          <%= opensource_project_user_name_tag(@opensource_project.user) %> ·
+          <span class="time" title="收录时间"><i class="fa fa-clock-o"></i> <%= timeago @opensource_project.created_at %></span> ·
+          <%= @opensource_project.hits %> 次阅读 ·
+          <a href="#comments"><i class="fa fa-comments-o"></i> <%= @opensource_project.comments_count %> 条评论</a>
+          </div>
+        </div>
+      </div>
+
+        <%= social_share_button_tag @opensource_project.title %>
+      <div class="zan">
+        <% if @opensource_project.likes_count and @opensource_project.likes_count >= 1 %>
+            <%= likeable_tag(@opensource_project, class: 'btn btn-lg btn-default active') %>
+        <% else %>
+            <%= likeable_tag(@opensource_project, class: 'btn btn-lg btn-default') %>
+        <% end %>
+      </div>
+    </div>
+
+
+
+    <div class="opensource_project-body markdown">
+      <%= markdown @opensource_project.body %>
+    </div>
+
+    <div class="opensource_project-actions">
+
+      <% unless @opensource_project.user&.admin? %>
+        <%= reward_user_tag(@opensource_project.user, class: 'btn btn-lg btn-default') %>
       <% end %>
     </div>
   </div>
 </div>
 
 <div id="comments">
-  <%= render "/shared/comments", commentable: @post %>
+  <%= render "/shared/comments", commentable: @opensource_project %>
 </div>
